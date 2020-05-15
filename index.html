@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>SIMPLEX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    
+
+    <body>
+        <div class="wrapper fadeInDown">
+  <div id="formContent">
+    
+    <div class="fadeIn first">
+      <h5>SIMPLEX PO DLLN</h5>
+    </div>
+
+    <!-- Campo da Variavel -->
+    <form>
+      <input type="text" id="var1" name="" class="form-control" placeholder="Numero de Variáveis"></di>
+      <input type="text" id="va2" name="" class="form-control" placeholder="Numero de Restrições">
+      <input type="button" id="somar" class="fadeIn fourth" value="CALCULAR" onclick="somarValores()">
+
+    </form>
+
+   <script type="text/javascript">
+        function somarValores(){
+        var var1 = document.getElementById("var1").value;
+        var var2 = document.getElementById("var2").value;
+        var var3 = parseInt(var1) + parseInt(var2);
+        alert(var3);
+    }
+    </script>
+    
+
+  </div>
+</div>
+
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript">
+            buttonAreaAdm.addEventListener('click', function() {
+                const rotaUrl = inputAreaAdm.value;
+                if (rotaUrl) {
+                    window.location = rotaUrl;
+                }
+            })
+        </script>
+        <html>
+ 
+</body>
+</html>
+    </body>
+
+</html>
