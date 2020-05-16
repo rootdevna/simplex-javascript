@@ -9,91 +9,79 @@
     <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
 
 
-    <body>
-        <div class="wrapper fadeInDown">
-            <div id="formContent">
-
-
-                <div class="fadeIn first">
-                    <h5>SIMPLEX PO20 <br>Maximizar:</h5>
-                </div>
-
-                <!-- Campo da Variavel -->
-
-                <form>
-                    <h6 style="text-align: left;">Função Objetivo:</h6>
-
-                    <div class="row">
-
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="X1">
-                        </div>
-
-                        <p>+</p>
-                        <div class="col-sm-2">
-                            <input type="text" id="x2" class="form-control" placeholder="X2">
-                        </div>
-                    </div>
-                    <h6 style="text-align: left;">Restrições:</h6>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="X1">
-                        </div>
-
-                        <p>+</p>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="X2">
-                        </div>
-                        <p>
-                            <=</p>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" placeholder="B">
-                                </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="X1">
-                        </div>
-
-                        <p>+</p>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" placeholder="X2">
-                        </div>
-                        <p>
-                            <=</p>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" placeholder="B">
-                                </div>
-                    </div>
-                </form>
-
-
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="button" id="direta" class="fadeIn fourth" value="SOLUÇÂO DIRETA" onclick="" style="background-color: blueviolet;">
-                    <input type="button" id="passo" class="fadeIn fourth" value="PASSO A PASSO" onclick="" style="background-color: blueviolet;">
-                </div>
-
+            <div class="fadeIn first">
+                <h5>SIMPLEX PO20 <br>Maximizar:</h5>
             </div>
+
+            <!-- Campo da Variavel -->
+
+            <form>
+                <h6 style="text-align: left;">Função Objetivo:</h6>
+
+                <div class="row" id="fo">
+
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="X1">
+                    </div>
+
+                    <p>+</p>
+                    <div class="col-sm-2">
+                        <input type="text" id="x2" class="form-control" placeholder="X2">
+                    </div>
+                </div>
+
+
+                <h6 style="text-align: left;">Restrições:</h6>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="X1">
+                    </div>
+
+                    <p>+</p>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="X2">
+                    </div>
+                    <p>
+                        <=</p>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" placeholder="B">
+                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="X1">
+                    </div>
+
+                    <p>+</p>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="X2">
+                    </div>
+                    <p>
+                        <=</p>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" placeholder="B">
+                            </div>
+                </div>
+            </form>
+
+
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="button" id="direta" class="fadeIn fourth" value="SOLUÇÂO DIRETA" onclick="" style="background-color: blueviolet;">
+                <input type="button" id="passo" class="fadeIn fourth" value="PASSO A PASSO" onclick="" style="background-color: blueviolet;">
+            </div>
+
         </div>
-
-        <script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="node_modules/popper.js/dist/umd/popper.js"></script>
-        <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-        <script type="text/javascript">
-            buttonAreaAdm.addEventListener('click', function() {
-                const rotaUrl = inputAreaAdm.value;
-                if (rotaUrl) {
-                    window.location = rotaUrl;
-                }
-            })
-        </script>
-        <html>
-
-    </body>
-
-    </html>
-    </body>
+    </div>
+</body>
 
 </html>

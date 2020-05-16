@@ -9,53 +9,57 @@
     <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
 
 
-    <body>
-        <div class="wrapper fadeInDown">
-            <div id="formContent">
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
 
 
-                <div class="fadeIn first">
-                    <h5>SIMPLEX PO20 - DLLN</h5>
-                </div>
-
-                <!-- Campo da Variavel -->
-
-                <input type="text" id="var1" name="" class="form-control" placeholder="Numero de Variáveis de Decisão"></di>
-                <input type="text" id="va2" name="" class="form-control" placeholder="Numero de Restrições">
-                <input type="text" id="va2" name="" class="form-control" placeholder="Numero de Interações">
-
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="button" id="max" class="fadeIn fourth" value="MAXIMIZAR" onclick="" style="background-color: blueviolet;">
-                    <input type="button" id="min" class="fadeIn fourth" value="MINIMIZAR" onclick="">
-                </div>
-
-
-
-                <script type="text/javascript">
-                </script>
-
-
+            <div class="fadeIn first">
+                <h5>SIMPLEX PO20 - DLLN</h5>
             </div>
+
+            <!-- Campo da Variavel -->
+            <input type="text" id="qtd_var" name="" class="form-control" placeholder="Numero de Variáveis de Decisão"></di>
+            <input type="text" id="qtd_res" name="" class="form-control" placeholder="Numero de Restrições">
+            <input type="text" id="qtd_it" name="" class="form-control" placeholder="Numero de Interações">
+
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="button" id="min" class="fadeIn fourth" value="MINIMIZAR" onclick="">
+                <input type="button" id="max" class="fadeIn fourth" value="MAXIMIZAR" onclick="" style="background-color: blueviolet;">
+            </div>
+
+
+
+            <script type="text/javascript">
+
+                window.addEventListener("load", function(event) {
+
+                    var btnMax = document.querySelector('#max');
+                    var variables = document.querySelector('#qtd_var');
+                    var restrictions = document.querySelector('#qtd_res');
+                    var iterations = document.querySelector('#qtd_it')
+
+                    btnMax.addEventListener("click", function(event) {
+                        window.localStorage.setItem("variables", variables.value);
+                        window.localStorage.setItem("restrictions", restrictions.value);
+                        window.localStorage.setItem("iterations", iterations.value);
+
+                        window.location.href = "maximizar.html";
+                    });
+
+                });
+
+            </script>
+
+
         </div>
-
-        <script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="node_modules/popper.js/dist/umd/popper.js"></script>
-        <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-        <script type="text/javascript">
-            buttonAreaAdm.addEventListener('click', function() {
-                const rotaUrl = inputAreaAdm.value;
-                if (rotaUrl) {
-                    window.location = rotaUrl;
-                }
-            })
-        </script>
-        <html>
-
-    </body>
-
-    </html>
-    </body>
+    </div>
+</body>
 
 </html>
