@@ -12,6 +12,32 @@
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script type="text/javascript">
+        
+        window.addEventListener("load", function(event) {
+            var variables = window.localStorage.getItem("variables");
+            var restrictions =  window.localStorage.getItem("restrictions");
+            var iterations =  window.localStorage.getItem("iterations");
+
+            var obj_function = document.querySelector('#fo');
+
+            var HTMLInputsVariables = "";
+            for(var i = 0; i < variables; i++) {
+                HTMLInputsVariables += "<div class='col-sm-2'>"
+                            + "<input type='text' class='form-control' placeholder='X"+(i+1)+"'>" +
+                    "</div>";
+
+                if(i != variables-1) {
+                    HTMLInputsVariables += "<p>+</p>";
+                }
+            }
+
+            obj_function.innerHTML = HTMLInputsVariables;
+
+        });
+
+    </script>
 </head>
 
 <body>
@@ -29,15 +55,7 @@
                 <h6 style="text-align: left;">Função Objetivo:</h6>
 
                 <div class="row" id="fo">
-
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="X1">
-                    </div>
-
-                    <p>+</p>
-                    <div class="col-sm-2">
-                        <input type="text" id="x2" class="form-control" placeholder="X2">
-                    </div>
+                   <!--Conteudo gerado dinamicamente via JS-->
                 </div>
 
 
