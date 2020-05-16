@@ -35,6 +35,38 @@
 
             obj_function.innerHTML = HTMLInputsVariables;
 
+
+            var res = document.querySelector('#res');
+
+            var HTMLInputsRestrictions = "";
+
+            for(var i = 0; i < restrictions; i++) {
+                HTMLInputsRestrictions += "<div class='row'>";
+                
+                //variavel para guardar as variaveis de restricao
+                var res_variables = "";
+                
+                for(var j = 0; j < variables; j++) {
+                    res_variables += "<div class='col-sm-2'>"
+                            + "<input type='text' class='form-control' placeholder='X"+(j+1)+"'>" +
+                    "</div>";
+
+                    if(j != variables-1) {
+                        res_variables += "<p>+</p>";
+                    }
+                }
+
+                HTMLInputsRestrictions += res_variables;
+                HTMLInputsRestrictions += "<p><=</p>"+
+                            "<div class='col-sm-2'>"+
+                                "<input type='text' class='form-control' placeholder='B'>"+
+                            "</div>";
+                HTMLInputsRestrictions += "</div>";
+
+            }
+
+            res.innerHTML = HTMLInputsRestrictions;
+
         });
 
     </script>
@@ -60,7 +92,10 @@
 
 
                 <h6 style="text-align: left;">Restrições:</h6>
-                <div class="row">
+
+                <div id="res">
+
+                <!--div class="row">
                     <div class="col-sm-2">
                         <input type="text" class="form-control" placeholder="X1">
                     </div>
@@ -89,7 +124,7 @@
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" placeholder="B">
                             </div>
-                </div>
+                </div-->
             </form>
 
 
