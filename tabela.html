@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>SIMPLEX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="./app/models/matriz-test.js"></script>
+
+    <script>
+        window.addEventListener("load", function(event) {
+            var variables = parseFloat(window.localStorage.getItem("variables"));
+            var restrictions =  parseFloat(window.localStorage.getItem("restrictions"));
+            var iterations =  parseFloat(window.localStorage.getItem("iterations"));
+
+        
+            //Implementacao da classe Matriz
+            var data = window.localStorage.getItem("data");
+            data = JSON.parse(data);
+            console.log(data);
+
+
+            var matriz = new Matriz(restrictions + 1, variables + 1);
+
+
+            for (var i = 0; i < restrictions; i++)
+            {
+                matriz.addInput(data[`f${i+1}`], i);
+            }
+
+            matriz.addInput(data.fo, restrictions);
+
+            var simplexFrame = Matriz.generateSimplexFrame(matriz);
+
+            console.log(simplexFrame)
+
+            var simplexTable = document.querySelector('#simplex');
+
+            var table = "";
+
+            for(var i = 0; i <= simplexFrame.rows; i++) {
+
+                if(i == 0) {
+                    table = "<thead><tr><th scope='col'>Base</th>";
+
+                    //variaveis de decisao
+                    for(var j = 0; j < variables; j++) {
+                        table += "<th scope='col'>X"+(j+1)+"</th>";
+                    }
+
+                    //variaveis de folga (restricoes)
+                    for(var j = 0; j < restrictions; j++) {
+                        table += "<th scope='col'>F"+(j+1)+"</th>";
+                    }
+
+                    table += "</tr></thead><tbody>";
+                }
+                else if(i == simplexFrame.rows) {
+                    table += "<tr><th scope='row'>Z</th>";
+
+                    for(var j = 0; j < simplexFrame.cols; j++) {
+                        table += "<td scope='col'>"+simplexFrame.data[i-1][j]+"</td>";
+                    }
+                }
+                else {
+                    table += "<tr><th scope='row'>F"+(i)+"</th>";
+
+                    for(var j = 0; j < simplexFrame.cols; j++) {
+                        table += "<td scope='col'>"+simplexFrame.data[i-1][j]+"</td>";
+                    }
+                }
+
+            }
+
+            simplexTable.innerHTML = table;
+
+
+
+        });
+
+    </script>
+
+</head>
+
+    <body>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <div class="fadeIn first">
+                    <h5>SIMPLEX PO20</h5>
+                    <table class="table table-bordered" id="simplex">
+                        <thead>
+                            <tr>
+                                <th scope="col">Base</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">X1</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">X2</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Z</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                <!--h5>Análise de Sensibilidade</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Váriavel</th>
+                            <th scope="col">Valor Inicial</th>
+                            <th scope="col">Valor Final</th>
+                            <th scope="col">Uso</th>
+                            <th scope="col">Sobra</th>
+                            <th scope="col">Preço Sombra</th>
+                            <th scope="col">Custo Reduzido</th>
+                            <th scope="col">Máximo</th>
+                            <th scope="col">Mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table-->
+            </div>
+
+
+
+
+
+
+
+            <script src="node_modules/jquery/dist/jquery.js"></script>
+            <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+            <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    </body>
+
+</html>

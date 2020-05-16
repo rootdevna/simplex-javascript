@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>SIMPLEX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script type="text/javascript">
+        
+        window.addEventListener("load", function(event) {
+            var variables = window.localStorage.getItem("variables");
+            var restrictions =  window.localStorage.getItem("restrictions");
+            var iterations =  window.localStorage.getItem("iterations");
+
+            var stepTo = document.querySelector('#passo');
+
+            var obj_function = document.querySelector('#fo');
+
+            var HTMLInputsVariables = "";
+            for(var i = 0; i < variables; i++) {
+                HTMLInputsVariables += "<div class='col-sm-2'>"
+                            + "<input type='text' class='form-control' placeholder='X"+(i+1)+"' id='fo_x"+(i+1)+"'>" +
+                    "</div>";
+
+                if(i != variables-1) {
+                    HTMLInputsVariables += "<p>+</p>";
+                }
+            }
+
+            obj_function.innerHTML = HTMLInputsVariables;
+
+
+            var res = document.querySelector('#res');
+
+            var HTMLInputsRestrictions = "";
+
+            for(var i = 0; i < restrictions; i++) {
+                HTMLInputsRestrictions += "<div class='row'>";
+                
+                //variavel para guardar as variaveis de restricao
+                var res_variables = "";
+                
+                for(var j = 0; j < variables; j++) {
+                    res_variables += "<div class='col-sm-2'>"
+                            + "<input type='text' class='form-control' placeholder='X"+(j+1)+"' id='f"+(i+1)+"_x"+(j+1)+"'>" +
+                    "</div>";
+
+                    if(j != variables-1) {
+                        res_variables += "<p>+</p>";
+                    }
+                }
+
+                HTMLInputsRestrictions += res_variables;
+                HTMLInputsRestrictions += "<p><=</p>"+
+                            "<div class='col-sm-2'>"+
+                                "<input type='text' class='form-control' placeholder='B' id='f"+(i+1)+"_base'>"+
+                            "</div>";
+                HTMLInputsRestrictions += "</div>";
+
+            }
+
+            res.innerHTML = HTMLInputsRestrictions;
+
+            stepTo.addEventListener("click", (event) => {
+
+                var data = {
+                    fo: []
+                }
+
+                for(var i = 0; i < variables; i++) {
+                    data.fo.push( eval(document.querySelector('#fo_x'+(i+1)).value) )
+                }
+
+
+                for(var i = 0; i < restrictions; i++) {
+                    if(!data[`f${i+1}`]) data[`f${i+1}`] = []
+
+                    for(var j = 0; j < variables; j++) {
+                        data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_x'+(j+1)).value) )
+                    }
+
+                    data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_base').value) )
+                }
+
+                window.localStorage.setItem("data", JSON.stringify(data));
+
+
+                window.location.href = "tabela.html";
+            });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+
+            <div class="fadeIn first">
+                <h5>SIMPLEX PO20 <br>Maximizar:</h5>
+            </div>
+
+            <!-- Campo da Variavel -->
+
+            <form>
+                <h6 style="text-align: left;">Função Objetivo:</h6>
+
+                <div class="row" id="fo">
+                   <!--Conteudo gerado dinamicamente via JS-->
+                </div>
+
+
+                <h6 style="text-align: left;">Restrições:</h6>
+
+                <div id="res">
+                    <!--Conteudo gerado dinamicamente via JS-->
+                </div>
+            </form>
+
+
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="button" id="direta" class="fadeIn fourth" value="SOLUÇÂO DIRETA" onclick="" style="background-color: blueviolet;">
+                <input type="button" id="passo" class="fadeIn fourth" value="PASSO A PASSO" onclick="" style="background-color: blueviolet;">
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

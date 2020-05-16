@@ -5,60 +5,61 @@
     <title>SIMPLEX</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/bootstrap.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
-
-    <body>
-
-            <div class="container ">
-            	<h1>SIMPLEX PO</h1>
-                
-                <form>
-
-                    <div class="form-group">
-                        <div class="col-md-4 offset-md-3">
-                            <label>Numero de Variaveis de Decisão </label>
-                            <input type="text" name="variavel1" class="form-control ">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-4 offset-md-3">
-                            <label> Numero de Restrições </label>
-                            <input type="text" name="variavel2" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-4 offset-md-3">
-                            <input type="submit" value="Calcular" class="btn btn-primary" name="">
-                            <div class="form-check">
-
-                            </div>
-                        </div>
-                    </div>
-                </form>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
 
 
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+
+            <div class="fadeIn first">
+                <h5>SIMPLEX PO20 - DLLN</h5>
+            </div>
+
+            <!-- Campo da Variavel -->
+            <input type="text" id="qtd_var" name="" class="form-control" placeholder="Numero de Variáveis de Decisão"></di>
+            <input type="text" id="qtd_res" name="" class="form-control" placeholder="Numero de Restrições">
+            <input type="text" id="qtd_it" name="" class="form-control" placeholder="Numero de Interações">
+
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="button" id="min" class="fadeIn fourth" value="MINIMIZAR" onclick="">
+                <input type="button" id="max" class="fadeIn fourth" value="MAXIMIZAR" onclick="" style="background-color: blueviolet;">
             </div>
 
 
 
+            <script type="text/javascript">
+
+                window.addEventListener("load", function(event) {
+
+                    var btnMax = document.querySelector('#max');
+                    var variables = document.querySelector('#qtd_var');
+                    var restrictions = document.querySelector('#qtd_res');
+                    var iterations = document.querySelector('#qtd_it')
+
+                    btnMax.addEventListener("click", function(event) {
+                        window.localStorage.setItem("variables", variables.value);
+                        window.localStorage.setItem("restrictions", restrictions.value);
+                        window.localStorage.setItem("iterations", iterations.value);
+
+                        window.location.href = "maximizar.html";
+                    });
+
+                });
+
+            </script>
 
 
-
-        <script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="node_modules/popper.js/dist/umd/popper.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            buttonAreaAdm.addEventListener('click', function() {
-                const rotaUrl = inputAreaAdm.value;
-                if (rotaUrl) {
-                    window.location = rotaUrl;
-                }
-            })
-        </script>
-    </body>
+        </div>
+    </div>
+</body>
 
 </html>
