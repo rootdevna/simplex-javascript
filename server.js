@@ -68,6 +68,8 @@ var iteratorCount = 0;
 
 while (true)
 {
+    console.log(simplexFrame.checkRowZ());
+    
     if (simplexFrame.checkRowZ() == true) {
         iteratorCount++;
         simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
