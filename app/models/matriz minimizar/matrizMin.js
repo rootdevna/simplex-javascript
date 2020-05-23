@@ -27,17 +27,23 @@ class matrizMin {
                 colBigNegative = i;
             }
         }
+        //console.log(colBigNegative);        
         return colBigNegative;
     }
 
-    getExitRow() {
+    getExitRow(typeSimplex) {
         var arr = [];
         var rowSmallPositive = -1;
-        var column = this.getEnterColumn();        
-        //#region Foi alterado de -1 para 1, para poder resolver o simplex de minimizar
-        if (column == 1) {            
-            return 1;            
-        }   
+        var column = this.getEnterColumn();                        
+        if (typeSimplex == 'max'){
+            if (column == -1) {                
+                return -1
+            }
+        }else if (typeSimplex == 'min'){
+            if (column == 1) {                
+                return 1
+            }          
+        }
         for (var i = 0; i < this.rows - 2; i++) {
             arr.push(this.data[i][this.cols - 2] / this.data[i][column]);
         }
@@ -56,8 +62,8 @@ class matrizMin {
         return rowSmallPositive;
     }
 
-    getPivo() {
-        return this.getExitRow() != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow()][this.getEnterColumn()] : -1;
+    getPivo(typeSimplex) {
+        return this.getExitRow(typeSimplex) != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow(typeSimplex)][this.getEnterColumn()] : -1;
     }
 
     addInput(arr, column) {
@@ -119,9 +125,9 @@ class matrizMin {
        return frame;
     }
 
-    static generateNewSimplexFrame(simplex) {
+    static generateNewSimplexFrame(simplex, typeSimplex) {
         var frame = new matrizMin(simplex.rows, simplex.cols);
-        var pivoRow = simplex.getExitRow();
+        var pivoRow = simplex.getExitRow(typeSimplex);
         if (pivoRow == -1){
             return frame;
         }
@@ -129,8 +135,8 @@ class matrizMin {
         if (pivoColumn == -1){
             return frame;
         }
-        var pivoValue = simplex.getPivo();
-        if (pivoValue == -1){            
+        var pivoValue = simplex.getPivo(typeSimplex);
+        if (pivoValue == -1){                        
             return frame;
         }
 
@@ -138,7 +144,7 @@ class matrizMin {
         for (var i = 0; i < simplex.cols; i++) {
             baseRow.push(simplex.data[pivoRow][i]);            
         }
-        //Daqui para baixo não esta pegando o código
+        
         for (var i = 0; i < baseRow.length - 1; i++) {            
             baseRow[i] = baseRow[i] / pivoValue;
         }
