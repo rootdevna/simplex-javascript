@@ -1,5 +1,4 @@
 const matrizMin = require('./app/models/matriz minimizar/matrizMin');
-const mathjs = require('mathjs');
 
 //#region Maximizar
 
