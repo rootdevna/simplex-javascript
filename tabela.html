@@ -59,27 +59,25 @@
 
             var matriz = null;
 
-            if(option == "MAX") {
+            //if(option == "MAX") {
                 matriz = new Matriz(restrictions + 1, variables + 1);
-            }
-            else if(option == "MIN") {
-                matriz = new matrizMin(restrictions + 1, variables + 1);
-            }
+            //}
+           // else if(option == "MIN") {
+            //    matriz = new matrizMin(restrictions + 1, variables + 1);
+          //  }
 
-            for (var i = 0; i < restrictions; i++)
-            {
+            for (var i = 0; i < restrictions; i++) {
                 matriz.addInput(data[`f${i+1}`], i);
             }
 
+            matriz.addLastRow(data.fo, restrictions, option);
 
-            matriz.addInput(data.fo, restrictions);
-
-            if(option == "MAX") {
+           // if(option == "MAX") {
                 simplexFrame = Matriz.generateSimplexFrame(matriz);
-            }
-            else if(option == "MIN") {
-                simplexFrame = matrizMin.generateSimplexFrame(matriz);
-            }
+            //}
+           // else if(option == "MIN") {
+            //    simplexFrame = matrizMin.generateSimplexFrame(matriz);
+           // }
 
             if(solution == "direta") {
                 var iteratorCount = 0;
@@ -90,12 +88,12 @@
                     if (simplexFrame.checkRowZ() == true) {
                         iteratorCount++;
 
-                        if(option == "MAX") {
-                            simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
-                        }
-                        else if(option == "MIN") {
-                            simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
-                        }
+                        // if(option == "MAX") {
+                             simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
+                        // }
+                        // else if(option == "MIN") {
+                        //     simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
+                        // }
 
                         simplexFrame.print();
                     }

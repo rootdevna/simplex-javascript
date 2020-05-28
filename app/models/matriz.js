@@ -64,6 +64,22 @@ class Matriz {
             this.data[column][i] = arr[i];
     }
 
+    addLastRow(arr, column, option) {
+        switch (option) {
+            case "MAX":
+            case "max":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = arr[i];
+                break;
+
+            case "MIN":
+            case "min":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = -arr[i];
+                break;
+        }
+    }
+
     addRow(arr, row) {
         for (var i = 0; i < arr.length; i++)
             this.data[row][i] = arr[i];
