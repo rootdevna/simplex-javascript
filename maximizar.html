@@ -21,6 +21,7 @@
             var iterations =  window.localStorage.getItem("iterations");
 
             var stepTo = document.querySelector('#passo');
+            var direta = document.querySelector('#direta');
 
             var obj_function = document.querySelector('#fo');
 
@@ -69,34 +70,52 @@
 
             res.innerHTML = HTMLInputsRestrictions;
 
+            direta.addEventListener("click", (event) => {
+
+                window.localStorage.setItem('solution', event.target.id);
+
+                saveData();
+
+                window.location.href = "tabela.html";
+            });
+
             stepTo.addEventListener("click", (event) => {
 
-                var data = {
-                    fo: []
-                }
+                window.localStorage.setItem('solution', event.target.id);
 
-                for(var i = 0; i < variables; i++) {
-                    data.fo.push( eval(document.querySelector('#fo_x'+(i+1)).value) )
-                }
-
-
-                for(var i = 0; i < restrictions; i++) {
-                    if(!data[`f${i+1}`]) data[`f${i+1}`] = []
-
-                    for(var j = 0; j < variables; j++) {
-                        data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_x'+(j+1)).value) )
-                    }
-
-                    data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_base').value) )
-                }
-
-                window.localStorage.setItem("data", JSON.stringify(data));
-
+                saveData();
 
                 window.location.href = "tabela.html";
             });
 
         });
+
+        function saveData() {
+            var variables = window.localStorage.getItem("variables");
+            var restrictions =  window.localStorage.getItem("restrictions");
+            var iterations =  window.localStorage.getItem("iterations");
+            
+            var data = {
+                fo: []
+            }
+
+            for(var i = 0; i < variables; i++) {
+                data.fo.push( eval(document.querySelector('#fo_x'+(i+1)).value) )
+            }
+
+
+            for(var i = 0; i < restrictions; i++) {
+                if(!data[`f${i+1}`]) data[`f${i+1}`] = []
+
+                for(var j = 0; j < variables; j++) {
+                    data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_x'+(j+1)).value) )
+                }
+
+                data[`f${i+1}`].push( eval(document.querySelector('#f'+(i+1)+'_base').value) )
+            }
+
+            window.localStorage.setItem("data", JSON.stringify(data));
+        }
 
     </script>
 </head>
@@ -129,7 +148,7 @@
 
 
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="button" id="direta" class="fadeIn fourth" value="SOLUÇÂO DIRETA" onclick="" style="background-color: blueviolet;">
+                <input type="button" id="direta" class="fadeIn fourth" value="SOLUÇÃO DIRETA" onclick="" style="background-color: blueviolet;">
                 <input type="button" id="passo" class="fadeIn fourth" value="PASSO A PASSO" onclick="" style="background-color: blueviolet;">
             </div>
 

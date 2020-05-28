@@ -41,6 +41,7 @@
                 window.addEventListener("load", function(event) {
 
                     var btnMax = document.querySelector('#max');
+                    var btnMin = document.querySelector('#min');
                     var variables = document.querySelector('#qtd_var');
                     var restrictions = document.querySelector('#qtd_res');
                     var iterations = document.querySelector('#qtd_it')
@@ -51,6 +52,18 @@
                         window.localStorage.setItem("iterations", iterations.value);
 
                         window.location.href = "maximizar.html";
+
+                        window.localStorage.setItem('option', 'MAX');
+                    });
+
+                    btnMin.addEventListener("click", function(event) {
+                        window.localStorage.setItem("variables", variables.value);
+                        window.localStorage.setItem("restrictions", restrictions.value);
+                        window.localStorage.setItem("iterations", iterations.value);
+
+                        window.location.href = "maximizar.html";
+
+                        window.localStorage.setItem('option', 'MIN');
                     });
 
                 });
