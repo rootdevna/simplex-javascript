@@ -143,14 +143,28 @@
                     table += "<tr><th scope='row'>Z</th>";
 
                     for(var j = 0; j < simplexFrame.cols-1; j++) {
-                        table += "<td scope='col'>"+simplexFrame.data[i-1][j]+"</td>";
+
+                        var number = simplexFrame.data[i-1][j];
+
+                        if(Math.round(number) !== number) {
+                            number = number.toFixed(2);
+                        }
+
+                        table += "<td scope='col'>"+number+"</td>";
                     }
                 }
                 else {
                     table += "<tr><th scope='row'>F"+(i)+"</th>";
 
                     for(var j = 0; j < simplexFrame.cols-1; j++) {
-                        table += "<td scope='col'>"+simplexFrame.data[i-1][j]+"</td>";
+
+                        var number = simplexFrame.data[i-1][j];
+
+                        if(Math.round(number) !== number) {
+                            number = number.toFixed(2);
+                        }
+
+                        table += "<td scope='col'>"+number+"</td>";
                     }
                 }
 
