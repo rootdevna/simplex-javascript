@@ -50,7 +50,11 @@ class Matriz {
             var rowSmallPositive = -1;
             var smallPositive = arr[0];
             for (var i = 0; i < arr.length; i++) {
-                if (smallPositive > arr[i]) {
+                if (smallPositive > arr[i] && arr[i] > 0) {
+                    smallPositive = arr[i];
+                    rowSmallPositive = i;
+                }
+                else if (smallPositive == 0 && arr[i] > 0) {
                     smallPositive = arr[i];
                     rowSmallPositive = i;
                 }
@@ -157,7 +161,7 @@ class Matriz {
         if (pivoColumn == -1)
             return frame;
         var pivoValue = simplex.getPivo(option);
-        if (pivoValue == -1 || pivoValue == 0)
+        if (pivoValue == -1)// || pivoValue == 0)
             return frame;
         var baseRow = [];
         for (var i = 0; i < simplex.cols; i++) {
