@@ -17,7 +17,7 @@
             var variables = parseFloat(window.localStorage.getItem("variables"));
             var restrictions =  parseFloat(window.localStorage.getItem("restrictions"));
             var iterations =  parseFloat(window.localStorage.getItem("iterations"));
-
+            var option = window.localStorage.getItem("option");
             var solution = window.localStorage.getItem("solution");
 
             var simplexFrame = null;
@@ -31,12 +31,8 @@
             }
 
             nextButton.addEventListener('click', function(event) {
-                if(option == "MAX") {
-                    simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
-                }
-                else if(option == "MIN") {
-                    simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
-                }
+                simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
+
                 if(simplexFrame.checkRowZ() == true) {
                     fillTable(simplexFrame);
                 }
@@ -55,31 +51,16 @@
             data = JSON.parse(data);
             console.log(data);
 
-            var option = window.localStorage.getItem("option");
-
             var matriz = null;
 
-            if(option == "MAX") {
-                matriz = new Matriz(restrictions + 1, variables + 1);
-            }
-            else if(option == "MIN") {
-                matriz = new matrizMin(restrictions + 1, variables + 1);
-            }
+            matriz = new Matriz(restrictions + 1, variables + 1);
 
-            for (var i = 0; i < restrictions; i++)
-            {
+            for (var i = 0; i < restrictions; i++) {
                 matriz.addInput(data[`f${i+1}`], i);
             }
 
-
-            matriz.addInput(data.fo, restrictions);
-
-            if(option == "MAX") {
-                simplexFrame = Matriz.generateSimplexFrame(matriz);
-            }
-            else if(option == "MIN") {
-                simplexFrame = matrizMin.generateSimplexFrame(matriz);
-            }
+            matriz.addLastRow(data.fo, restrictions, option);
+            simplexFrame = Matriz.generateSimplexFrame(matriz);
 
             if(solution == "direta") {
                 var iteratorCount = 0;
@@ -89,14 +70,7 @@
                     
                     if (simplexFrame.checkRowZ() == true) {
                         iteratorCount++;
-
-                        if(option == "MAX") {
-                            simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
-                        }
-                        else if(option == "MIN") {
-                            simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
-                        }
-
+                        simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
                         simplexFrame.print();
                     }
                     else

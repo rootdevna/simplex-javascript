@@ -27,36 +27,53 @@ class Matriz {
                 colBigNegative = i;
             }
         }
-        return colBigNegative;
+        return colBigNegative; 
     }
 
-    getExitRow() {
+    getExitRow(option) {
         var arr = [];
-        var rowSmallPositive = -1;
         var column = this.getEnterColumn();
         if (column == -1) {
             return -1;
         }
         for (var i = 0; i < this.rows - 2; i++) {
+            if (this.data[i][column] == 0)
+                arr.push(0);
             arr.push(this.data[i][this.cols - 2] / this.data[i][column]);
         }
         if (arr.length <= 0) {
             return -1;
         }
-        var smallPositive = arr[0];
-        for (var i = 0; i < arr.length; i++) {
-            if (smallPositive > arr[i]) {
-                smallPositive = arr[i];
-                rowSmallPositive = i;
+        if (option === "MAX" || option === 'max') {
+            var rowSmallPositive = -1;
+            var smallPositive = arr[0];
+            for (var i = 0; i < arr.length; i++) {
+                if (smallPositive > arr[i]) {
+                    smallPositive = arr[i];
+                    rowSmallPositive = i;
+                }
+                if (i == arr.length - 1 && rowSmallPositive == -1 && arr[0] == smallPositive)
+                    rowSmallPositive = 0;
             }
-            if (i == arr.length - 1 && rowSmallPositive == -1 && arr[0] == smallPositive)
-                rowSmallPositive = 0;
+            return rowSmallPositive;
         }
-        return rowSmallPositive;
+        else {
+            var rowSmallNegative = -1;
+            var smallNegative = arr[0];
+            for (var i = 0; i < arr.length; i++) {
+                if (smallNegative < arr[i]) {
+                    smallNegative = arr[i];
+                    rowSmallNegative = i;
+                }
+                if (i == arr.length - 1 && rowSmallNegative == -1 && arr[0] == smallNegative)
+                    rowSmallNegative = 0;
+            }
+            return rowSmallNegative;
+        }
     }
 
-    getPivo() {
-        return this.getExitRow() != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow()][this.getEnterColumn()] : -1;
+    getPivo(option) {
+        return this.getExitRow(option) != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow(option)][this.getEnterColumn()] : -1;
     }
 
     addInput(arr, column) {
@@ -67,6 +84,19 @@ class Matriz {
     addRow(arr, row) {
         for (var i = 0; i < arr.length; i++)
             this.data[row][i] = arr[i];
+    }
+
+    addLastRow(arr, column, option) {
+        switch (option) {
+            case "MIN":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = arr[i];
+                break;
+            case "MAX":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = -arr[i];
+                break;
+        }
     }
 
     checkRowZ() {   
@@ -116,15 +146,15 @@ class Matriz {
        return frame;
     }
 
-    static generateNewSimplexFrame(simplex) {
+    static generateNewSimplexFrame(simplex, option) {
         var frame = new Matriz(simplex.rows, simplex.cols);
-        var pivoRow = simplex.getExitRow();
+        var pivoRow = simplex.getExitRow(option);
         if (pivoRow == -1)
             return frame;
-        var pivoColumn = simplex.getEnterColumn();
+        var pivoColumn = simplex.getEnterColumn(option);
         if (pivoColumn == -1)
             return frame;
-        var pivoValue = simplex.getPivo();
+        var pivoValue = simplex.getPivo(option);
         if (pivoValue == -1)
             return frame;
         var baseRow = [];
@@ -151,3 +181,5 @@ class Matriz {
         return frame;
     }
 }
+
+module.exports = Matriz;
