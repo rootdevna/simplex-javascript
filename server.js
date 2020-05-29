@@ -1,13 +1,32 @@
 const Matriz = require('./app/models/matriz');
 
 var numDecisionVar = 2; // Quantidade de variáveis de decisão
-var numConstraintVar = 3; // Quantidade de variáveis de restrição
+var numConstraintVar = 2; // Quantidade de variáveis de restrição
 
 var matriz = new Matriz(numConstraintVar + 1, numDecisionVar + 1);
 
-/*
 var option = "MAX";
 
+var line1 = [200, 0, 6000];
+var line2 = [0, 140, 4000];
+var line3 = [25, 30];
+
+for (var i = 0; i < numConstraintVar + 1; i++)
+{
+    switch (i)
+    {
+        case 0:
+            matriz.addInput(line1, i);
+            break;
+        case 1:
+            matriz.addInput(line2, i);
+            break;
+        case 2:
+            matriz.addLastRow(line3, i, option);
+            break;
+    }
+}
+/*
 var line1 = [7/10, 1, 630];
 var line2 = [1/2, 5/6, 600];
 var line3 = [1, 2/3, 700];
@@ -34,8 +53,8 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addLastRow(line5, i, option);
             break;
     }
-}
-*/
+}*/
+/*
 var line1 = [1,0,4];
 var line2 = [0,1,6];
 var line3 = [3,2,18];
@@ -61,22 +80,22 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             break;
     }
 }
-
+*/
 matriz.print();
 
 var simplexFrame = Matriz.generateSimplexFrame(matriz);
 
 simplexFrame.print();
 
-console.log(simplexFrame.getEnterColumn());
-console.log(simplexFrame.getExitRow(option));
+//console.log(simplexFrame.getEnterColumn());
+//console.log(simplexFrame.getExitRow(option));
 
 
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
 simplexFrame.print();
-
+/*
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
-simplexFrame.print();
+simplexFrame.print();*/
 /*var iteratorCount = 0;
 
 while (true)

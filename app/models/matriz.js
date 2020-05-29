@@ -157,7 +157,7 @@ class Matriz {
         if (pivoColumn == -1)
             return frame;
         var pivoValue = simplex.getPivo(option);
-        if (pivoValue == -1)
+        if (pivoValue == -1 || pivoValue == 0)
             return frame;
         var baseRow = [];
         for (var i = 0; i < simplex.cols; i++) {
