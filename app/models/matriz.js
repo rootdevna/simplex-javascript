@@ -37,8 +37,10 @@ class Matriz {
             return -1;
         }
         for (var i = 0; i < this.rows - 2; i++) {
-            if (this.data[i][column] == 0)
+            if (this.data[i][column] == 0) {
                 arr.push(0);
+                continue;
+            }
             arr.push(this.data[i][this.cols - 2] / this.data[i][column]);
         }
         if (arr.length <= 0) {
@@ -162,6 +164,10 @@ class Matriz {
             baseRow.push(simplex.data[pivoRow][i]);
         }
         for (var i = 0; i < baseRow.length - 1; i++) {
+            if (baseRow[i] == 0) {
+                baseRow[i] = 0;
+                continue;
+            }
             baseRow[i] = baseRow[i] / pivoValue;
         }
         baseRow[baseRow.length - 1] = simplex.data[simplex.rows - 1][pivoColumn];
