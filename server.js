@@ -57,7 +57,7 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addLastRow(line5, i, option);
             break;
     }
-}*/
+}
 /*
 var line1 = [1,0,4];
 var line2 = [0,1,6];
@@ -83,8 +83,8 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addLastRow(line4, i, option);
             break;
     }
-}
-*/
+}*/
+
 matriz.print();
 
 var simplexFrame = Matriz.generateSimplexFrame(matriz);
@@ -103,11 +103,18 @@ console.log(simplexFrame.getExitRow(option));
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
 simplexFrame.print();
 
+simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
+simplexFrame.print();
+
+/*
+simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
+simplexFrame.print();
+
 console.log(simplexFrame.getEnterColumn());
 console.log(simplexFrame.getExitRow(option));
 
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
-simplexFrame.print();
+simplexFrame.print();*/
 /*var iteratorCount = 0;
 
 while (true)

@@ -16,7 +16,6 @@
             var variables = parseFloat(window.localStorage.getItem("variables"));
             var restrictions =  parseFloat(window.localStorage.getItem("restrictions"));
             var iterations =  parseFloat(window.localStorage.getItem("iterations"));
-            var option = window.localStorage.getItem("option");
             var solution = window.localStorage.getItem("solution");
 
             var simplexFrame = null;
@@ -30,7 +29,7 @@
             }
 
             nextButton.addEventListener('click', function(event) {
-                simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
+                simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
 
                 if(simplexFrame.checkRowZ() == true) {
                     fillTable(simplexFrame);
@@ -55,6 +54,8 @@
             for (var i = 0; i < restrictions; i++) {
                 matriz.addInput(data[`f${i+1}`], i);
             }
+            
+            var option = window.localStorage.getItem("option");
 
             matriz.addLastRow(data.fo, restrictions, option);
             simplexFrame = Matriz.generateSimplexFrame(matriz);
@@ -67,7 +68,7 @@
                     
                     if (simplexFrame.checkRowZ() == true) {
                         iteratorCount++;
-                        simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
+                        simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
                         simplexFrame.print();
                     }
                     else

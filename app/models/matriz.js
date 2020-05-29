@@ -30,7 +30,7 @@ class Matriz {
         return colBigNegative; 
     }
 
-    getExitRow(option) {
+    getExitRow() {
         var arr = [];
         var column = this.getEnterColumn();
         if (column == -1) {
@@ -46,40 +46,25 @@ class Matriz {
         if (arr.length <= 0) {
             return -1;
         }
-        if (option === "MAX" || option === 'max') {
-            var rowSmallPositive = -1;
-            var smallPositive = arr[0];
-            for (var i = 0; i < arr.length; i++) {
-                if (smallPositive > arr[i] && arr[i] > 0) {
-                    smallPositive = arr[i];
-                    rowSmallPositive = i;
-                }
-                else if (smallPositive == 0 && arr[i] > 0) {
-                    smallPositive = arr[i];
-                    rowSmallPositive = i;
-                }
-                if (i == arr.length - 1 && rowSmallPositive == -1 && arr[0] == smallPositive)
-                    rowSmallPositive = 0;
+        var rowSmallPositive = -1;
+        var smallPositive = arr[0];
+        for (var i = 0; i < arr.length; i++) {
+            if (smallPositive > arr[i] && arr[i] > 0) {
+                smallPositive = arr[i];
+                rowSmallPositive = i;
             }
-            return rowSmallPositive;
-        }
-        else {
-            var rowSmallNegative = -1;
-            var smallNegative = arr[0];
-            for (var i = 0; i < arr.length; i++) {
-                if (smallNegative < arr[i]) {
-                    smallNegative = arr[i];
-                    rowSmallNegative = i;
-                }
-                if (i == arr.length - 1 && rowSmallNegative == -1 && arr[0] == smallNegative)
-                    rowSmallNegative = 0;
+            else if (smallPositive == 0 && arr[i] > 0) {
+                smallPositive = arr[i];
+                rowSmallPositive = i;
             }
-            return rowSmallNegative;
+            if (i == arr.length - 1 && rowSmallPositive == -1 && arr[0] == smallPositive)
+                rowSmallPositive = 0;
         }
+        return rowSmallPositive;
     }
 
-    getPivo(option) {
-        return this.getExitRow(option) != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow(option)][this.getEnterColumn()] : -1;
+    getPivo() {
+        return this.getExitRow() != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow()][this.getEnterColumn()] : -1;
     }
 
     addInput(arr, column) {
@@ -152,15 +137,15 @@ class Matriz {
        return frame;
     }
 
-    static generateNewSimplexFrame(simplex, option) {
+    static generateNewSimplexFrame(simplex) {
         var frame = new Matriz(simplex.rows, simplex.cols);
-        var pivoRow = simplex.getExitRow(option);
+        var pivoRow = simplex.getExitRow();
         if (pivoRow == -1)
             return frame;
-        var pivoColumn = simplex.getEnterColumn(option);
+        var pivoColumn = simplex.getEnterColumn();
         if (pivoColumn == -1)
             return frame;
-        var pivoValue = simplex.getPivo(option);
+        var pivoValue = simplex.getPivo();
         if (pivoValue == -1)// || pivoValue == 0)
             return frame;
         var baseRow = [];
