@@ -1,18 +1,5 @@
 const Matriz = require('./app/models/matriz');
 
-<<<<<<< Updated upstream
-var numDecisionVar = 3; // Quantidade de variáveis de decisão
-var numConstraintVar = 3; // Quantidade de variáveis de restrição
-
-var matriz = new Matriz(numConstraintVar + 1, numDecisionVar + 1);
-
-/*
-var line1 = [7/10, 1, 630];
-var line2 = [1/2, 5/6, 600];
-var line3 = [1, 2/3, 700];
-var line4 = [1/10, 1/4, 135];
-var line5 = [-10, -9];
-=======
 var numDecisionVar = 2; // Quantidade de variáveis de decisão
 var numConstraintVar = 4; // Quantidade de variáveis de restrição
 
@@ -49,7 +36,6 @@ var line3 = [3,2,18];
 var line4 = [-3,-5];
 
 var option = "MIN";
->>>>>>> Stashed changes
 
 for (var i = 0; i < numConstraintVar + 1; i++)
 {
@@ -65,20 +51,6 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addInput(line3, i);
             break;
         case 3:
-<<<<<<< Updated upstream
-            matriz.addInput(line4, i);
-            break;
-        case 4:
-            matriz.addInput(line5, i);
-            break;
-    }
-}*/
-
-var line1 = [1, 1, 1, 100];
-var line2 = [10, 4, 5, 600];
-var line3 = [2, 2, 6, 300];
-var line4 = [-10, -6, -4];
-=======
             matriz.addLastRow(line4, i, option);
             break;
     }
@@ -90,7 +62,6 @@ var line2 = [1/2, 5/6, 600];
 var line3 = [1, 2/3, 700];
 var line4 = [1/10, 1/4, 135];
 var line5 = [10, 9];
->>>>>>> Stashed changes
 
 for (var i = 0; i < numConstraintVar + 1; i++)
 {
@@ -107,29 +78,21 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             break;
         case 3:
             matriz.addInput(line4, i);
-<<<<<<< Updated upstream
-            break;
-    }
-}
-=======
             break;
         case 4:
-            matriz.addLastRow(line5, i, option);
+            //.addLastRow(line5, i, option);
+            matriz.addLastRow(line5, i, option)
             break;
     }
 }
 
 
->>>>>>> Stashed changes
 
 matriz.print();
 
 var simplexFrame = Matriz.generateSimplexFrame(matriz);
 simplexFrame.print();
 
-<<<<<<< Updated upstream
-var iteratorCount = 0;
-=======
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
 simplexFrame.print();
 
@@ -159,7 +122,6 @@ console.log(simplexFrame.getExitRow(option));
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
 simplexFrame.print();*/
 /*var iteratorCount = 0;
->>>>>>> Stashed changes
 
 while (true)
 {
@@ -174,4 +136,4 @@ while (true)
         break;
 }
 
-console.log("Total de Iterações: " + iteratorCount);
+console.log("Total de Iterações: " + iteratorCount);*/

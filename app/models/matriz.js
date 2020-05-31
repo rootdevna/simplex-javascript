@@ -72,6 +72,18 @@ class Matriz {
         for (var i = 0; i < arr.length; i++)
             this.data[row][i] = arr[i];
     }
+    addLastRow(arr, column, option) {
+        switch (option) {
+            case "MIN":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = arr[i];
+                break;
+            case "MAX":
+                for (var i = 0; i < arr.length; i++)
+                    this.data[column][i] = -arr[i];
+                break;
+        }
+    }
 
     checkRowZ() {   
         for (var i = 0; i < this.cols - 1; i++) {
@@ -156,11 +168,12 @@ class Matriz {
         for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
             var increase = -1;
             var decrease = -1;
-            for (var k = 0; k < simplex.rows - 2 - 2; k++) {
+            var arm = 0
+            for (var k = 0; k < simplex.rows - 2; k++) {
                 if (i == 2)
-                    console.log(simplex.data[k][simplex.cols - 2]  /  simplex.data[k][i]);
-                var result = (Number.parseFloat(simplex.data[k][simplex.cols - 2]) / Number.parseFloat(simplex.data[k][i])) * -1;
-                //console.log(result);
+                var result = 0
+                result = (Number.parseFloat(simplex.data[k][simplex.cols - 2]).toFixed(2) / Number.parseFloat(simplex.data[k][i])).toFixed(2) * -1;
+                
                 if (result > 0) {
                     if (increase == -1) {
                         increase = result;
@@ -176,8 +189,8 @@ class Matriz {
                     else if (decrease < result) {
                         decrease = result;
                     }
-                }
-                else if (k == simplex.rows - 3) {
+                }                
+                else if (k == simplex.rows - 3) {                                        
                     if (increase == -1) {
                         increase = 0;
                     }
@@ -185,9 +198,15 @@ class Matriz {
                         decrease = 0;
                     }
                 }
+                frame.data[i][6] = increase;                
+                frame.data[i][7] = decrease;                
             }
-            frame.data[i][6] = frame.data[i][0] + increase;
-            frame.data[i][7] = frame.data[i][0] - decrease;
+            // frame.data[i][6] = frame.data[i][0] + increase;
+            //console.log("increase " + frame.data[i][0] + increase);
+                        
+            // frame.data[i][7] = frame.data[i][0] - decrease;
+            //console.log("decrease " + frame.data[i][0] - decrease);
+           
         }
         return frame;
     }
@@ -257,6 +276,7 @@ class Matriz {
                     newRow.push(baseRow[j] * -simplex.data[i][pivoColumn] + simplex.data[i][j]);
                 }
                 newRow.push(simplex.data[i][simplex.cols - 1]);
+                                
                 frame.addRow(newRow, i);
             }
         }
