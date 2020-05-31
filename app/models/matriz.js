@@ -1,3 +1,7 @@
+function precise(x) {
+    return Number.parseFloat(x).toPrecision(4);
+}
+
 class Matriz {
     constructor(rows, cols) {
         this.rows = rows;
@@ -76,6 +80,116 @@ class Matriz {
             }
         }
         return false;
+    }
+
+    static generateSensitivityAnalysis(matriz, simplex) {
+        var frame = new Matriz(matriz.rows + matriz.cols, 9);
+
+//#region Tags
+        // Adiciona tags para identificação da tabela 
+        for (var i = 0; i < frame.rows - 1; i++) {
+            if (i < matriz.cols - 1) {
+                frame.data[i][frame.cols - 1] = "X" + (i + 1);
+            }
+            else if (i < matriz.rows + 1) {
+                frame.data[i][frame.cols - 1] = "F" + ((i + 1) - 2);
+            }
+            else {
+                frame.data[i][frame.cols - 1] = "Z";
+            }
+        }
+        frame.data[frame.rows - 1][0] = "Valor Inicial";
+        frame.data[frame.rows - 1][1] = "Valor Final";
+        frame.data[frame.rows - 1][2] = "Uso";
+        frame.data[frame.rows - 1][3] = "Sobra";
+        frame.data[frame.rows - 1][4] = "Preço Sombra";
+        frame.data[frame.rows - 1][5] = "Custo Reduzido";
+        frame.data[frame.rows - 1][6] = "Máximo";
+        frame.data[frame.rows - 1][7] = "Mínimo";
+        frame.data[frame.rows - 1][frame.cols - 1] = "Variável";
+//#endregion
+
+        // Valor Inicial
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+            frame.data[i][0] = matriz.data[i - (matriz.cols - 1)][matriz.cols - 1];
+        }
+
+        // Valor Final
+        for (var i = 0; i < frame.rows - 1; i++) {
+            for (var j = 0; j < simplex.rows - 1; j++) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[j][simplex.cols - 1]) {
+                    frame.data[i][1] = simplex.data[j][simplex.cols - 2];
+                }
+            }
+        }
+
+        // Uso
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+            frame.data[i][2] = frame.data[i][0] - frame.data[i][1];
+        }
+
+        // Sobra
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+            if (frame.data[i][1] > 0) {
+                frame.data[i][3] = frame.data[i][1];
+            }
+        }
+
+        // Preço Sombra
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+            for (var j = matriz.cols - 1; j < simplex.cols - 2; j++) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j]) {
+                    frame.data[i][4] = simplex.data[simplex.rows - 2][j];
+                }
+            }
+        }
+
+        // Custo Reduzido
+        for (var i = 0; i < matriz.cols - 1; i++) {
+            for (var j = 0; j < matriz.cols - 1; j++) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j]) {
+                    frame.data[i][5] = simplex.data[simplex.rows - 2][j];
+                }
+            }
+        }
+
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+            var increase = -1;
+            var decrease = -1;
+            for (var k = 0; k < simplex.rows - 2 - 2; k++) {
+                if (i == 2)
+                    console.log(simplex.data[k][simplex.cols - 2]  /  simplex.data[k][i]);
+                var result = (Number.parseFloat(simplex.data[k][simplex.cols - 2]) / Number.parseFloat(simplex.data[k][i])) * -1;
+                //console.log(result);
+                if (result > 0) {
+                    if (increase == -1) {
+                        increase = result;
+                    }
+                    else if (increase > result) {
+                        increase = result;
+                    }
+                }
+                else if (result < 0) {
+                    if (decrease == -1) {
+                        decrease = result;
+                    }
+                    else if (decrease < result) {
+                        decrease = result;
+                    }
+                }
+                else if (k == simplex.rows - 3) {
+                    if (increase == -1) {
+                        increase = 0;
+                    }
+                    if (decrease == -1) {
+                        decrease = 0;
+                    }
+                }
+            }
+            frame.data[i][6] = frame.data[i][0] + increase;
+            frame.data[i][7] = frame.data[i][0] - decrease;
+        }
+        return frame;
     }
 
     static generateSimplexFrame(matriz) {
