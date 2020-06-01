@@ -100,15 +100,12 @@ class Matriz {
 //#region Tags
         // Adiciona tags para identificação da tabela 
         for (var i = 0; i < frame.rows - 1; i++) {
-            if (i < matriz.cols - 1) {
+            if (i < matriz.cols - 1)
                 frame.data[i][frame.cols - 1] = "X" + (i + 1);
-            }
-            else if (i < matriz.rows + 1) {
-                frame.data[i][frame.cols - 1] = "F" + ((i + 1) - 2);
-            }
-            else {
+            else if (i < simplex.cols - 2)
+                frame.data[i][frame.cols - 1] = "F" + ((i + 2) - matriz.cols);
+            else
                 frame.data[i][frame.cols - 1] = "Z";
-            }
         }
         frame.data[frame.rows - 1][0] = "Valor Inicial";
         frame.data[frame.rows - 1][1] = "Valor Final";
@@ -122,91 +119,81 @@ class Matriz {
 //#endregion
 
         // Valor Inicial
-        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++)
             frame.data[i][0] = matriz.data[i - (matriz.cols - 1)][matriz.cols - 1];
-        }
 
         // Valor Final
         for (var i = 0; i < frame.rows - 1; i++) {
             for (var j = 0; j < simplex.rows - 1; j++) {
-                if (frame.data[i][frame.cols - 1] === simplex.data[j][simplex.cols - 1]) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[j][simplex.cols - 1])
                     frame.data[i][1] = simplex.data[j][simplex.cols - 2];
-                }
             }
         }
 
         // Uso
-        for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
+        for (var i = matriz.cols - 1; i < frame.rows - 2; i++)
             frame.data[i][2] = frame.data[i][0] - frame.data[i][1];
-        }
 
         // Sobra
         for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
-            if (frame.data[i][1] > 0) {
+            if (frame.data[i][1] > 0)
                 frame.data[i][3] = frame.data[i][1];
-            }
         }
 
         // Preço Sombra
         for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
             for (var j = matriz.cols - 1; j < simplex.cols - 2; j++) {
-                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j]) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j])
                     frame.data[i][4] = simplex.data[simplex.rows - 2][j];
-                }
             }
         }
 
         // Custo Reduzido
         for (var i = 0; i < matriz.cols - 1; i++) {
             for (var j = 0; j < matriz.cols - 1; j++) {
-                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j]) {
+                if (frame.data[i][frame.cols - 1] === simplex.data[simplex.rows - 1][j])
                     frame.data[i][5] = simplex.data[simplex.rows - 2][j];
-                }
             }
         }
 
+        // Mínimo e Máximo
         for (var i = matriz.cols - 1; i < frame.rows - 2; i++) {
             var increase = -1;
             var decrease = -1;
-            var arm = 0
-            for (var k = 0; k < simplex.rows - 2; k++) {
-                if (i == 2)
-                var result = 0
-                result = (Number.parseFloat(simplex.data[k][simplex.cols - 2]).toFixed(2) / Number.parseFloat(simplex.data[k][i])).toFixed(2) * -1;
-                
+            for (var j = 0; j < simplex.rows - 2; j++) {
+                var result = 0;
+                if (simplex.data[j][i] != 0)
+                    result = (simplex.data[j][simplex.cols - 2] / simplex.data[j][i]) * -1;
                 if (result > 0) {
-                    if (increase == -1) {
+                    if (increase == -1)
                         increase = result;
-                    }
-                    else if (increase > result) {
+                    else if (increase > result)
                         increase = result;
-                    }
                 }
                 else if (result < 0) {
-                    if (decrease == -1) {
+                    if (decrease == -1)
                         decrease = result;
-                    }
-                    else if (decrease < result) {
+                    else if (decrease < result)
                         decrease = result;
-                    }
                 }                
-                else if (k == simplex.rows - 3) {                                        
-                    if (increase == -1) {
+                else if (j == simplex.rows - 3) {                                        
+                    if (increase == -1)
                         increase = 0;
-                    }
-                    if (decrease == -1) {
+                    if (decrease == -1)
                         decrease = 0;
-                    }
-                }
-                frame.data[i][6] = increase;                
-                frame.data[i][7] = decrease;                
+                }     
             }
-            // frame.data[i][6] = frame.data[i][0] + increase;
-            //console.log("increase " + frame.data[i][0] + increase);
-                        
-            // frame.data[i][7] = frame.data[i][0] - decrease;
-            //console.log("decrease " + frame.data[i][0] - decrease);
-           
+            // Tratamento para Increase e Decrease
+            if (decrease < 0)
+                decrease = -decrease;
+            if (frame.data[i][1] != 0)
+                increase = -2;
+
+            if (increase == -2)
+                frame.data[i][6] = "INFINITO";
+            else 
+                frame.data[i][6] = frame.data[i][0] + increase;   
+            frame.data[i][7] = frame.data[i][0] - decrease;
         }
         return frame;
     }
@@ -241,10 +228,10 @@ class Matriz {
             if (i < matriz.cols - 1)
                 frame.data[frame.rows - 1][i] = "X" + (i + 1);
             else if (i < frame.cols - 2)
-                frame.data[frame.rows - 1][i] = "F" + ((i + 1) - 2);
+                frame.data[frame.rows - 1][i] = "F" + ((i + 2) - matriz.cols);
             else
                 frame.data[frame.rows - 1][i] = "B";
-       }
+       }       
        frame.data[frame.rows - 1][frame.cols - 1] = "DLLN";
        return frame;
     }
