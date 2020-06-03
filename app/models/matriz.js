@@ -47,7 +47,7 @@ class Matriz {
             return -1;
         }
         if (option === "MAX" || option === 'max') {
-            var rowSmallPositive = -1;
+            var rowSmallPositive = 1;
             var smallPositive = arr[0];
             for (var i = 0; i < arr.length; i++) {
                 if (smallPositive > arr[i]) {
@@ -188,4 +188,3 @@ class Matriz {
     }
 }
 
-module.exports = Matriz;

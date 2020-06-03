@@ -5,6 +5,9 @@
     <title>SIMPLEX</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
@@ -118,7 +121,7 @@
                         var number = simplexFrame.data[i-1][j];
 
                         if(Math.round(number) !== number) {
-                            number = number.toFixed(2);
+                            number = number.toFixed(4);
                         }
 
                         table += "<td scope='col'>"+number+"</td>";
@@ -132,7 +135,7 @@
                         var number = simplexFrame.data[i-1][j];
 
                         if(Math.round(number) !== number) {
-                            number = number.toFixed(2);
+                            number = number.toFixed(4);
                         }
 
                         table += "<td scope='col'>"+number+"</td>";
@@ -217,16 +220,6 @@
                     </tbody>
                 </table-->
             </div>
-
-
-
-
-
-
-
-            <script src="node_modules/jquery/dist/jquery.js"></script>
-            <script src="node_modules/popper.js/dist/umd/popper.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     </body>
 
 </html>
