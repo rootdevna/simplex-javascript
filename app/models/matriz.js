@@ -47,6 +47,17 @@ class Matriz {
         if (arr.length <= 0) {
             return -1;
         }
+        // Tratamento de solução impossível
+        var findPositive = false;
+        for (var i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > 0) {
+                findPositive = true;
+                break;
+            }
+        }
+        if (findPositive == false) {
+            return -1;
+        }
         var smallPositive = arr[0];
         for (var i = 0; i < arr.length; i++) {
             if (smallPositive > arr[i]) {
