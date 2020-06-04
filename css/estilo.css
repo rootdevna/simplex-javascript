@@ -1,12 +1,8 @@
 /* BASIC */
 
-html {
-    background-color: #56baed;
-}
-
 body {
     font-family: "Poppins", sans-serif;
-    height: 100vh;
+    background-color: #f8f8f8;
 }
 
 a {
@@ -34,8 +30,6 @@ h2 {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
-    min-height: 100%;
     padding: 20px;
 }
 
@@ -44,11 +38,10 @@ h2 {
     border-radius: 10px 10px 10px 10px;
     background: #fff;
     padding: 20px;
-    width: 90%;
-    max-width: 800px;
+    min-width: 50%;
     position: relative;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 

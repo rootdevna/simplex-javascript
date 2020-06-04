@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
     <script src="./app/models/matriz-test.js"></script>
-    <script src="./app/models/matriz-min-test.js"></script>
 
     <script>
         window.addEventListener("load", function(event) {
@@ -24,18 +23,14 @@
             var finalSolution = false;
 
             var nextButton = document.querySelector('#next');
-            nextButton.style.display = "none";
-
-            if(solution == "passo") {
-                nextButton.style.display = "block";                
-            }
+          
 
             nextButton.addEventListener('click', function(event) {
                 if(option == "MAX") {
-                    simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
+                    simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, "max");
                 }
                 else if(option == "MIN") {
-                    simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
+                    simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, 'min');
                 }
                 if(simplexFrame.checkRowZ() == true) {
                     fillTable(simplexFrame);
@@ -44,6 +39,16 @@
                     if(!finalSolution) {
                         fillTable(simplexFrame);
                         finalSolution = true;
+                        nextButton.style.display = "none";  
+
+                        console.log("matriz = ", matriz)
+                        console.log("simplex = ", simplexFrame)
+
+                        var analise = Matriz.generateSensitivityAnalysis(matriz, simplexFrame);
+
+                        console.log(analise)
+
+                        fillSensitiveTable(analise)
                     }
                 }
             });
@@ -63,7 +68,7 @@
                 matriz = new Matriz(restrictions + 1, variables + 1);
             }
             else if(option == "MIN") {
-                matriz = new matrizMin(restrictions + 1, variables + 1);
+                matriz = new Matriz(restrictions + 1, variables + 1);
             }
 
             for (var i = 0; i < restrictions; i++)
@@ -72,13 +77,13 @@
             }
 
 
-            matriz.addInput(data.fo, restrictions);
+            matriz.addLastRow(data.fo, restrictions, option);
 
             if(option == "MAX") {
                 simplexFrame = Matriz.generateSimplexFrame(matriz);
             }
             else if(option == "MIN") {
-                simplexFrame = matrizMin.generateSimplexFrame(matriz);
+                simplexFrame = Matriz.generateSimplexFrame(matriz);
             }
 
             if(solution == "direta") {
@@ -94,7 +99,7 @@
                             simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
                         }
                         else if(option == "MIN") {
-                            simplexFrame = matrizMin.generateNewSimplexFrame(simplexFrame, 'min');
+                            simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, 'min');
                         }
 
                         simplexFrame.print();
@@ -173,6 +178,54 @@
             simplexTable.innerHTML = table;
         }
 
+
+        function fillSensitiveTable(analise) {
+            var analiseTable = document.querySelector("#analise");
+
+            var legendLine = analise.data[analise.data.length - 1];
+
+            var table = "<thead><tr>";
+
+            for(var i = 0; i < legendLine.length; i++) {
+                table += "<th>"+legendLine[i]+"</th>";
+            }
+
+            table += "</tr></thead><tbody>";
+
+            // -1 porque a ultima linha é da legenda
+            for(var i = 0; i < analise.data.length - 1; i++) {
+
+                table += "<tr>";
+                for(var j = 0; j < analise.data[i].length; j++) {
+                    if(j < analise.data[i].length - 1) {
+
+                        var number = analise.data[i][j];
+
+                        try {
+                            if(Math.round(number) != number) {
+                                number = number.toFixed(3);
+                            }
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
+
+                        table += "<td>"+number+"</td>"
+                    }
+                    else {
+                        table += "<th>"+analise.data[i][j]+"</th>"
+                    }
+                }
+                table += "</tr>";
+            }
+
+            table += "</tbody>";
+
+            console.log(table)
+
+            analiseTable.innerHTML = table;
+        }
+
     </script>
 
 </head>
@@ -191,67 +244,20 @@
                     <input type="button" id="next" class="fadeIn fourth" value="Avançar" onclick="" style="background-color: blueviolet;">
                 </div>
 
-
-
-
-                <!--h5>Análise de Sensibilidade</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Váriavel</th>
-                            <th scope="col">Valor Inicial</th>
-                            <th scope="col">Valor Final</th>
-                            <th scope="col">Uso</th>
-                            <th scope="col">Sobra</th>
-                            <th scope="col">Preço Sombra</th>
-                            <th scope="col">Custo Reduzido</th>
-                            <th scope="col">Máximo</th>
-                            <th scope="col">Mínimo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table-->
             </div>
 
+        </div>
 
-
-
-
-
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <div class="fadeIn first">
+                    <h5>Análise de Sensibilidade</h5>
+                    <table class="table table-bordered" id="analise">
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
 
             <script src="node_modules/jquery/dist/jquery.js"></script>
             <script src="node_modules/popper.js/dist/umd/popper.js"></script>
