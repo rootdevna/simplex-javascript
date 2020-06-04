@@ -21,6 +21,9 @@
             var iterations =  parseFloat(window.localStorage.getItem("iterations"));
             var solution = window.localStorage.getItem("solution");
 
+            var option = window.localStorage.getItem("option");
+
+
             var simplexFrame = null;
             var finalSolution = false;
 
@@ -74,9 +77,6 @@
             for (var i = 0; i < restrictions; i++) {
                 matriz.addInput(data[`f${i+1}`], i);
             }
-            
-            var option = window.localStorage.getItem("option");
-
 
             matriz.addLastRow(data.fo, restrictions, option);
 
