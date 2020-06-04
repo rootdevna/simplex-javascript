@@ -47,7 +47,6 @@ class Matriz {
         if (arr.length <= 0) {
             return -1;
         }
-
         var smallPositive = arr[0];
         for (var i = 0; i < arr.length; i++) {
             if (smallPositive > arr[i]) {
@@ -263,9 +262,8 @@ class Matriz {
                 for (var j = 0; j < simplex.cols - 1; j++) {
                     newRow.push(baseRow[j] * -simplex.data[i][pivoColumn] + simplex.data[i][j]);
                 }
-
                 newRow.push(simplex.data[i][simplex.cols - 1]);
-
+                                
                 frame.addRow(newRow, i);
             }
         }
@@ -274,4 +272,3 @@ class Matriz {
         return frame;
     }
 }
-
