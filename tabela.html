@@ -23,9 +23,12 @@
 
             var option = window.localStorage.getItem("option");
 
+            var container_analise = document.querySelector('#container_analise');
+
 
             var simplexFrame = null;
             var finalSolution = false;
+            var impossibleSolution = false;
 
             var nextButton = document.querySelector('#next');
           
@@ -118,6 +121,7 @@
         function fillTable(simplexFrame) {
             var simplexTable = document.querySelector('#simplex');
             if (simplexFrame.checkSoluctionImpossible() == true) {
+                impossibleSolution = true;
                 simplexTable.innerHTML = "Solução Impossível";
             }
             else {
@@ -253,7 +257,7 @@
 
         </div>
 
-        <div class="wrapper fadeInDown">
+        <div class="wrapper fadeInDown" id="container_analise" style="display: none;">
             <div id="formContent">
                 <div class="fadeIn first">
                     <h5>Análise de Sensibilidade</h5>
