@@ -105,29 +105,3 @@ simplexFrame.print();
 
 simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
 simplexFrame.print();
-
-/*
-simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
-simplexFrame.print();
-
-console.log(simplexFrame.getEnterColumn());
-console.log(simplexFrame.getExitRow(option));
-
-simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, option);
-simplexFrame.print();*/
-/*var iteratorCount = 0;
-
-while (true)
-{
-    console.log(simplexFrame.checkRowZ());
-    
-    if (simplexFrame.checkRowZ() == true) {
-        iteratorCount++;
-        simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
-        simplexFrame.print();
-    }
-    else
-        break;
-}
-
-console.log("Total de Iterações: " + iteratorCount);*/
