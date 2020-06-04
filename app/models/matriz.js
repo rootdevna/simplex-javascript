@@ -1,6 +1,3 @@
-function precise(x) {
-    return Number.parseFloat(x).toPrecision(4);
-}
 
 class Matriz {
     constructor(rows, cols) {
@@ -22,6 +19,7 @@ class Matriz {
         console.table(this.data);
     }
 
+    // Define quem vai entrar na base
     getEnterColumn() {
         var colBigNegative = -1;
         var bigNegative = 0;
@@ -34,6 +32,7 @@ class Matriz {
         return colBigNegative;
     }
 
+    // Define quem vai sair da base
     getExitRow() {
         var arr = [];
         var rowSmallPositive = -1;
@@ -70,10 +69,12 @@ class Matriz {
         return rowSmallPositive;
     }
 
+    // Pega o pivo
     getPivo() {
         return this.getExitRow() != -1 && this.getEnterColumn() != -1 ? this.data[this.getExitRow()][this.getEnterColumn()] : -1;
     }
 
+    // 
     addInput(arr, column) {
         for (var i = 0; i < arr.length; i++)
             this.data[column][i] = arr[i];
@@ -95,7 +96,16 @@ class Matriz {
                 break;
         }
     }
-
+    checkSoluctionImpossible() {
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.cols; j++) {
+                if (this.data[i][j] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     checkRowZ() {   
         for (var i = 0; i < this.cols - 1; i++) {
             if (this.data[this.rows - 2][i] < 0) {

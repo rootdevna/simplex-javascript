@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/compiler/style.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
-    <script src="./app/models/matriz-test.js"></script>
+    <script src="./app/models/matriz.js"></script>
 
     <script>
         window.addEventListener("load", function(event) {
@@ -92,7 +92,6 @@
                 while (true)
                 {
                     console.log(simplexFrame.checkRowZ());
-                    
                     if (simplexFrame.checkRowZ() == true) {
                         iteratorCount++;
 
@@ -102,7 +101,6 @@
                         else if(option == "MIN") {
                             simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame, 'min');
                         }
-
                         simplexFrame.print();
                     }
                     else
@@ -118,65 +116,71 @@
         });
 
         function fillTable(simplexFrame) {
-            var variables = parseFloat(window.localStorage.getItem("variables"));
-            var restrictions =  parseFloat(window.localStorage.getItem("restrictions"));
-            var iterations =  parseFloat(window.localStorage.getItem("iterations"));
-
             var simplexTable = document.querySelector('#simplex');
-
-            var table = "";
-
-            for(var i = 0; i < simplexFrame.rows; i++) {
-
-                if(i == 0) {
-                    table = "<thead><tr><th scope='col'>Base</th>";
-
-                    //variaveis de decisao
-                    for(var j = 0; j < variables; j++) {
-                        table += "<th scope='col'>X"+(j+1)+"</th>";
-                    }
-
-                    //variaveis de folga (restricoes)
-                    for(var j = 0; j < restrictions; j++) {
-                        table += "<th scope='col'>F"+(j+1)+"</th>";
-                    }
-
-                    table += "<th scope='col'>B</th>";
-
-                    table += "</tr></thead><tbody>";
-                }
-                else if(i == simplexFrame.rows-1) {
-                    table += "<tr><th scope='row'>Z</th>";
-
-                    for(var j = 0; j < simplexFrame.cols-1; j++) {
-
-                        var number = simplexFrame.data[i-1][j];
-
-                        if(Math.round(number) !== number) {
-                            number = number.toFixed(4);
-                        }
-
-                        table += "<td scope='col'>"+number+"</td>";
-                    }
-                }
-                else {
-                    table += "<tr><th scope='row'>F"+(i)+"</th>";
-
-                    for(var j = 0; j < simplexFrame.cols-1; j++) {
-
-                        var number = simplexFrame.data[i-1][j];
-
-                        if(Math.round(number) !== number) {
-                            number = number.toFixed(4);
-                        }
-
-                        table += "<td scope='col'>"+number+"</td>";
-                    }
-                }
-
+            if (simplexFrame.checkSoluctionImpossible() == true) {
+                simplexTable.innerHTML = "Solução Impossível";
             }
+            else {
+                var variables = parseFloat(window.localStorage.getItem("variables"));
+                var restrictions =  parseFloat(window.localStorage.getItem("restrictions"));
+                var iterations =  parseFloat(window.localStorage.getItem("iterations"));
 
-            simplexTable.innerHTML = table;
+                var simplexTable = document.querySelector('#simplex');
+
+                var table = "";
+
+                for(var i = 0; i < simplexFrame.rows; i++) {
+
+                    if(i == 0) {
+                        table = "<thead><tr><th scope='col'>Base</th>";
+
+                        //variaveis de decisao
+                        for(var j = 0; j < variables; j++) {
+                            table += "<th scope='col'>X"+(j+1)+"</th>";
+                        }
+
+                        //variaveis de folga (restricoes)
+                        for(var j = 0; j < restrictions; j++) {
+                            table += "<th scope='col'>F"+(j+1)+"</th>";
+                        }
+
+                        table += "<th scope='col'>B</th>";
+
+                        table += "</tr></thead><tbody>";
+                    }
+                    else if(i == simplexFrame.rows-1) {
+                        table += "<tr><th scope='row'>Z</th>";
+
+                        for(var j = 0; j < simplexFrame.cols-1; j++) {
+
+                            var number = simplexFrame.data[i-1][j];
+
+                            if(Math.round(number) !== number) {
+                                number = number.toFixed(4);
+                            }
+
+                            table += "<td scope='col'>"+number+"</td>";
+                        }
+                    }
+                    else {
+                        table += "<tr><th scope='row'>F"+(i)+"</th>";
+
+                        for(var j = 0; j < simplexFrame.cols-1; j++) {
+
+                            var number = simplexFrame.data[i-1][j];
+
+                            if(Math.round(number) !== number) {
+                                number = number.toFixed(4);
+                            }
+
+                            table += "<td scope='col'>"+number+"</td>";
+                        }
+                    }
+
+                }
+
+                simplexTable.innerHTML = table;
+            }
         }
 
 

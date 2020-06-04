@@ -17,13 +17,13 @@ for (var i = 0; i < numConstraintVar + 1; i++)
     switch (i)
     {
         case 0:
-            matriz.addInput(line1, i);
+            matriz.addRow(line1, i);
             break;
         case 1:
-            matriz.addInput(line2, i);
+            matriz.addRow(line2, i);
             break;
         case 2:
-            matriz.addInput(line3, i);
+            matriz.addRow(line3, i);
             break;
         case 3:
             matriz.addLastRow(line4, i, option);
