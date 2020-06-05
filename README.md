@@ -1,27 +1,30 @@
 # simplex-javascript
-Projeto Simplex em Javascript
-SIMPLEX 2020
+## Projeto Simplex em Javascript - SIMPLEX 2020
 
-Repositório para a implementação do algoritmo Simplex.
-Projeto de Pesquisa Operacional 5º Semestre BSI UNIVEM
+###### Repositório para a implementação do algoritmo Simplex.
+###### Projeto de Pesquisa Operacional 5º Semestre BSI UNIVEM
 
-Daniel Moya      - RA: 580325
-Luiz H. Murakami - RA: 579025
-Luiz P. Vieira   - RA: 579130
-Natália          - RA: 583200
+### Integrantes do Grupo
+
+| Nome do Integrante |   RA   |
+| ------------------ | ------ |
+| Daniel Moya        | 580325 |
+| Luiz H. Murakami   | 579025 |
+| Luiz P. Vieira     | 579130 |
+| Natália da Silva   | 583200 |
 
 
 Simplex é um algoritmo que viabiliza a soluçao de muitos problemas
 de programação linear. 
 
-O nosso Sistema Simplex visa mostrar o maximizar e minizar
+Nosso Sistema Simplex visa mostrar o maximizar e minizar
 
-FERRAMENTAS
+### Ferramentas
 
-Bootstrap
-JavaScript
-HTML
-GitHub para hospedagem.
+- Bootstrap
+- JavaScript
+- HTML
+- GitHub para hospedagem.
 
 SIMPLEX
 
