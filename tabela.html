@@ -127,6 +127,9 @@
         });
 
         function fillTable(simplexFrame) {
+
+            console.log("simplexFrame  ===> ", simplexFrame);
+
             var simplexTable = document.querySelector('#simplex');
             if (simplexFrame.checkSoluctionImpossible() == true) {
                 impossibleSolution = true;
@@ -146,36 +149,17 @@
                     if(i == 0) {
                         table = "<thead><tr><th scope='col'>Base</th>";
 
+                        var legendaLinha = simplexFrame.data[simplexFrame.data.length - 1];
                         //variaveis de decisao
-                        for(var j = 0; j < variables; j++) {
-                            table += "<th scope='col'>X"+(j+1)+"</th>";
+                        for(var j = 0; j < legendaLinha.length -1; j++) {
+                            table += "<th scope='col'>"+legendaLinha[j]+"</th>";
                         }
-
-                        //variaveis de folga (restricoes)
-                        for(var j = 0; j < restrictions; j++) {
-                            table += "<th scope='col'>F"+(j+1)+"</th>";
-                        }
-
-                        table += "<th scope='col'>B</th>";
 
                         table += "</tr></thead><tbody>";
                     }
-                    else if(i == simplexFrame.rows-1) {
-                        table += "<tr><th scope='row'>Z</th>";
-
-                        for(var j = 0; j < simplexFrame.cols-1; j++) {
-
-                            var number = simplexFrame.data[i-1][j];
-
-                            if(Math.round(number) !== number) {
-                                number = number.toFixed(4);
-                            }
-
-                            table += "<td scope='col'>"+number+"</td>";
-                        }
-                    }
                     else {
-                        table += "<tr><th scope='row'>F"+(i)+"</th>";
+                        console.log(simplexFrame.data[i-1][simplexFrame.data[i-1].length - 1])
+                        table += "<tr><th scope='row'>"+simplexFrame.data[i-1][simplexFrame.data[i-1].length - 1]+"</th>";
 
                         for(var j = 0; j < simplexFrame.cols-1; j++) {
 
