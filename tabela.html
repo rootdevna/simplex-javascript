@@ -111,7 +111,14 @@
                         break;
                 }
 
+                finalSolution = true;
+                container_analise.style.display = "flex";
+                nextButton.style.display = "none";
                 fillTable(simplexFrame);
+
+                var analise = Matriz.generateSensitivityAnalysis(matriz, simplexFrame);
+
+                fillSensitiveTable(analise)
             }
             else {
                 fillTable(simplexFrame);
