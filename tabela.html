@@ -57,8 +57,6 @@
 
                         var analise = Matriz.generateSensitivityAnalysis(matriz, simplexFrame);
 
-                        console.log(analise)
-
                         fillSensitiveTable(analise)
                     }
                 }
@@ -95,10 +93,13 @@
                 var iteratorCount = 0;
                 while (true)
                 {
-                    console.log(simplexFrame.checkRowZ());
                     if (simplexFrame.checkRowZ() == true) {
+                        
+                        if(iteratorCount == iterations) {
+                            break;
+                        }
+                        
                         iteratorCount++;
-
                         if(option == "MAX") {
                             simplexFrame = Matriz.generateNewSimplexFrame(simplexFrame);
                         }
@@ -111,14 +112,19 @@
                         break;
                 }
 
-                finalSolution = true;
-                container_analise.style.display = "flex";
-                nextButton.style.display = "none";
+                if(iteratorCount == iterations) {
+                    document.querySelector("#message").innerHTML = "Você selecionou para finalizar na " + iteratorCount + "ª iteração."
+                }
+                else {
+                    finalSolution = true;
+                    container_analise.style.display = "flex";
+                    var analise = Matriz.generateSensitivityAnalysis(matriz, simplexFrame);
+
+                    fillSensitiveTable(analise)
+                }
+                    
+                nextButton.style.display = "none";                   
                 fillTable(simplexFrame);
-
-                var analise = Matriz.generateSensitivityAnalysis(matriz, simplexFrame);
-
-                fillSensitiveTable(analise)
             }
             else {
                 fillTable(simplexFrame);
@@ -222,8 +228,6 @@
 
             table += "</tbody>";
 
-            console.log(table)
-
             analiseTable.innerHTML = table;
         }
 
@@ -236,6 +240,7 @@
             <div id="formContent">
                 <div class="fadeIn first">
                     <h5>SIMPLEX PO20</h5>
+                    <p style="background-color: rgba(0, 0, 0, 0.05); border: solid 1px #ccc; padding: 5px 0px; border-radius: 3px; color: #555;" id="message"></p>
                     <table class="table table-bordered" id="simplex">
                         
                     </table>
