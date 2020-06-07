@@ -256,8 +256,7 @@ class Matriz {
        frame.data[frame.rows - 1][frame.cols - 1] = "DLLN";
        return frame;
     }
-
-    static generateNewSimplexFrame(simplex) {
+    static generateNewSimplexFrame(simplex, option) {
         var frame = new Matriz(simplex.rows, simplex.cols);
         var pivoRow = simplex.getExitRow();
         if (pivoRow == -1)
@@ -283,14 +282,19 @@ class Matriz {
                 for (var j = 0; j < simplex.cols - 1; j++) {
                     newRow.push(baseRow[j] * -simplex.data[i][pivoColumn] + simplex.data[i][j]);
                 }
-                newRow.push(simplex.data[i][simplex.cols - 1]);            
+                newRow.push(simplex.data[i][simplex.cols - 1]);    
                 frame.addRow(newRow, i);
             }
         }
         for (var i = 0; i < simplex.cols; i++)
             frame.data[frame.rows - 1][i] = simplex.data[simplex.rows - 1][i];
+        if (option == "min" || option == "MIN") {
+            if (frame.checkRowZ() == false) {
+                frame.data[frame.rows - 2][frame.cols - 2] = -frame.data[frame.rows - 2][frame.cols - 2];
+            }
+        }      
         return frame;
-    }
+    }    
 }
 
 module.exports = Matriz;

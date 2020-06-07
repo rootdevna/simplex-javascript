@@ -5,31 +5,31 @@ var numConstraintVar = 3; // Quantidade de variáveis de restrição
 
 var matriz = new Matriz(numConstraintVar + 1, numDecisionVar + 1);
 
-var option = "MAX";
+// var option = "MAX";
 
-var line1 = [1, 0, 6000];
-var line2 = [0, 1, 4000];
-var line3 = [0.005, 0.0071, 40]
-var line4 = [25, 30];
+// var line1 = [1, 0, 6000];
+// var line2 = [0, 1, 4000];
+// var line3 = [0.005, 0.0071, 40]
+// var line4 = [25, 30];
 
-for (var i = 0; i < numConstraintVar + 1; i++)
-{
-    switch (i)
-    {
-        case 0:
-            matriz.addRow(line1, i);
-            break;
-        case 1:
-            matriz.addRow(line2, i);
-            break;
-        case 2:
-            matriz.addRow(line3, i);
-            break;
-        case 3:
-            matriz.addLastRow(line4, i, option);
-            break;
-    }
-}
+// for (var i = 0; i < numConstraintVar + 1; i++)
+// {
+//     switch (i)
+//     {
+//         case 0:
+//             matriz.addRow(line1, i);
+//             break;
+//         case 1:
+//             matriz.addRow(line2, i);
+//             break;
+//         case 2:
+//             matriz.addRow(line3, i);
+//             break;
+//         case 3:
+//             matriz.addLastRow(line4, i, option);
+//             break;
+//     }
+// }
 /*
 var line1 = [7/10, 1, 630];
 var line2 = [1/2, 5/6, 600];
@@ -57,8 +57,8 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addLastRow(line5, i, option);
             break;
     }
-}
-/*
+}*/
+
 var line1 = [1,0,4];
 var line2 = [0,1,6];
 var line3 = [3,2,18];
@@ -83,7 +83,7 @@ for (var i = 0; i < numConstraintVar + 1; i++)
             matriz.addLastRow(line4, i, option);
             break;
     }
-}*/
+}
 
 matriz.print();
 

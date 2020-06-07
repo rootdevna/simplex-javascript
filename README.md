@@ -28,7 +28,18 @@ Nosso Sistema Simplex visa mostrar o maximizar e minizar
 
 SIMPLEX
 
-Algoritmo Simplex para problemas de maximização.
+| No | Tarefa                                               | Data Entrega    | Situacao |
+|----|------------------------------------------------------|-----------------|----------|
+| 1  | Algoritmo Simplex para problemas de maximização.     | 21/05/2020.     |   :ok:   |
+| 2  | Gerar restrições <=                                  | 21/05/2020.     |   :ok:   |
+| 3  | Análise de Sensibilidade                             | 04/06/2020.     |   :ok:   |
+| 4  | Apresentar quadros parciais (passo a passo)          | 28/05/2020.     |   :ok:   |
+| 5  | Tratar solução ilimitada                             | 04/06/2020.     |   :ok:   |
+| 6  | Tratar solução impossível                            | 04/06/2020.     |   :ok:   |
+| 7  | Apresentar resultado final (solução direta)          | 28/05/2020.     |   :ok:   |
+| 8  | Permitir múltiplas variáveis de decisão e restrições | 21/05/2020.     |   :ok:   |
+| 9  | Algoritmo Simplex para problemas de minimização      | 28/05/2020.     |   :ok:   |
+
 Algoritmo Simplex para problemas de minimização.
 É exibido o passo a passo das tabelas geradas pelo método Simplex
 
